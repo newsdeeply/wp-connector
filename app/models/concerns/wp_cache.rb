@@ -131,7 +131,7 @@ module WpCache
       # posts_per_page = (ENV['PER_PAGE'].to_i == -1 ? -1 : ENV['PER_PAGE'].to_i)
       base = WpConnector.configuration.wordpress_url
 
-      if (route.include?('/executive_summaries/'))
+      if (route.include?('executive_summaries'))
         route = route.gsub 'executive_summaries', 'executive-summary'
       end
 
@@ -143,6 +143,8 @@ module WpCache
       end
 
       Rails.logger.info "Current API call: #{url}"
+      #binding.pry
+      Rails.logger.info "We get next route: #{route}"
       response = Faraday.get url
       unless response.success? || (response.status >= 500 && response.status <= 599)
         fail Exceptions::WpApiResponseError, "WP-API #{url} responded #{response.status} #{response.body}"
