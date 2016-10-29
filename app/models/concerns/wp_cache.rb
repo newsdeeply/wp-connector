@@ -126,15 +126,22 @@ module WpCache
     #
     # TODO (cies): re-raise any connection errors with more intuitive names
     def get_from_wp_api(route, page = -1)
-      # debugger
+
       # TODO (dunyakirkali) pass filter through args to get_from_wp_api
       # posts_per_page = (ENV['PER_PAGE'].to_i == -1 ? -1 : ENV['PER_PAGE'].to_i)
       base = WpConnector.configuration.wordpress_url
+
+      if (route.include?('/executive_summaries/'))
+        route = route.gsub 'executive_summaries', 'executive-summary'
+      end
+
+
       unless paginated_models.include?(wp_type)
         url = "#{base}wp-json/wp/v2/#{route}"
       # else
       #   url = "#{base}wp-json/wp/v2/#{route}&filter[posts_per_page]=#{posts_per_page}&page=#{page}"
       end
+
       Rails.logger.info "Current API call: #{url}"
       response = Faraday.get url
       unless response.success? || (response.status >= 500 && response.status <= 599)
