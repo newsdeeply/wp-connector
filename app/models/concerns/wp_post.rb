@@ -20,7 +20,7 @@ module WpPost
   module ClassMethods
     # TODO (cies): refactor to constant WpPost::MAPPABLE_ATTRS
     def mappable_wordpress_attributes
-      %w( slug title status content excerpt acf_fields )
+      %w( slug title )
     end
 
     def wp_type
