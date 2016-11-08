@@ -132,7 +132,7 @@ module WpCache
       base = WpConnector.configuration.wordpress_url
 
       if route.include?('executive_summaries')
-        route = route.gsub 'executive_summaries', 'executive-summary'
+        route = route.gsub 'executive_summaries', 'executive-summaries'
       end
 
       unless paginated_models.include?(wp_type)
