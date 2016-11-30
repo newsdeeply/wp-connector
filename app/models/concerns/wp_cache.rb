@@ -131,9 +131,9 @@ module WpCache
       # posts_per_page = (ENV['PER_PAGE'].to_i == -1 ? -1 : ENV['PER_PAGE'].to_i)
       base = WpConnector.configuration.wordpress_url
 
-      if route.include?('executive_summaries')
-        route = route.gsub 'executive_summaries', 'executive-summaries'
-      end
+      # if route.include?('executive_summaries')
+      #   route = route.gsub 'executive_summaries', 'executive-summaries'
+      # end
 
       unless paginated_models.include?(wp_type)
         url = "#{base}wp-json/wp/v2/#{route}"
