@@ -133,12 +133,12 @@ module WpCache
 
       if route.include?('executive_summaries')
         route = route.gsub 'executive_summaries', 'executive-summary'
+      elsif route.include?('topics')
+        route = route.gsub 'topics', 'topic'
       end
 
       unless paginated_models.include?(wp_type)
         url = "#{base}wp-json/wp/v2/#{route}"
-      # else
-      #   url = "#{base}wp-json/wp/v2/#{route}&filter[posts_per_page]=#{posts_per_page}&page=#{page}"
       end
 
       #binding.pry
