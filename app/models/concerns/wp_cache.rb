@@ -42,7 +42,7 @@ module WpCache
     # and passes it the content by the `update_wp_cache` instance method.
     #
     def create_or_update(wp_type, wp_id, preview = false)
-      return unless wp_id.is_a? Fixnum or wp_id.is_a? String
+      return unless wp_id.is_a? Integer or wp_id.is_a? String
       maybe_preview_segment = (preview ? "preview/" : "")
       wp_json = get_from_wp_api "#{ wp_type }/#{ maybe_preview_segment }#{ wp_id }"
       # WP API will return a code if the route is incorrect or
@@ -127,9 +127,9 @@ module WpCache
     # TODO (cies): re-raise any connection errors with more intuitive names
     def get_from_wp_api(route, page = -1)
 
-      # TODO (dunyakirkali) pass filter through args to get_from_wp_api
-      # posts_per_page = (ENV['PER_PAGE'].to_i == -1 ? -1 : ENV['PER_PAGE'].to_i)
       base = WpConnector.configuration.wordpress_url
+
+      # binding.pry
 
       if route.include?('executive_summaries')
         route = route.gsub 'executive_summaries', 'executive-summaries'
@@ -140,8 +140,6 @@ module WpCache
       unless paginated_models.include?(wp_type)
         url = "#{base}wp-json/wp/v2/#{route}"
       end
-
-      #binding.pry
 
       Rails.logger.info "We get next route: #{route}"
       Rails.logger.info "Current API call: #{url}"
