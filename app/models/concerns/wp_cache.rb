@@ -131,10 +131,13 @@ module WpCache
 
       # binding.pry
 
-      if route.include?('executive_summaries')
-        route = route.gsub 'executive_summaries', 'executive-summaries'
-      elsif route.include?('topics')
-        route = route.gsub 'topics', 'topic'
+      case
+      when route.include?('executive_summaries')
+          route = route.gsub 'executive_summaries', 'executive-summaries'
+        when route.include?('topics')
+          route = route.gsub 'topics', 'topic'
+        when route.include?('entities')
+          route = route.gsub 'entities', 'entity'
       end
 
       unless paginated_models.include?(wp_type)
